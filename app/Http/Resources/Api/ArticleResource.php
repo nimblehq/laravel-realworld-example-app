@@ -38,9 +38,7 @@ class ArticleResource extends JsonResource
             'tagList' => new TagsCollection($this->resource->tags),
             'createdAt' => $this->resource->created_at,
             'updatedAt' => $this->resource->updated_at,
-            'favorited' => $this->when($user !== null, fn() =>
-                $this->resource->favoredBy($user)
-            ),
+            'favorited' => $user != null ? $this->resource->favoredBy($user) : false,
             'favoritesCount' => $this->resource->favoredUsers->count(),
             'author' => new ProfileResource($this->resource->author),
         ];
